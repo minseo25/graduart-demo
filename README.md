@@ -6,11 +6,6 @@ npm install
 dependencies 모두 설치하시고
 
 ```
-REACT_APP_API_URL=http://localhost:8000/api/v1
-```
-root에 .env 파일 하나 만드세요
-
-```
 npm start
 ```
 하면 localhost:3000 에 올라옵니다 (당연히 장고 서버도 켜두셔야 함)
@@ -23,6 +18,8 @@ npm start
 `localhost:3000/register` 에서는 회원가입이 가능하고
 
 `localhost:3000/` 로그인이 된 상태라면 여기서 로그인 정보를 확인 가능
+
+`localhost:3000/items` 에서는 작품 목록 확인 가능 (로그인 안하고서도), 검색 기능도 완료, 작품 상세 페이지도 접속 가능
 
 
 jwt token을 쿠키에 담아서 리턴했고, 보안을 위해 HttpOnly 세팅을 해둬 script로는 읽어오지 못합니다
