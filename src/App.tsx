@@ -7,6 +7,7 @@ import { useAuth } from './contexts/AuthContext';
 import GoogleCallback from './pages/GoogleCallback';
 import Items from './pages/items/Items';
 import ItemDetail from './pages/items/ItemDetail';
+import Cart from './pages/Cart';
 
 function PrivateRoute({ children }: { children: React.ReactNode }) {
   const { isAuthenticated, loading } = useAuth();
@@ -33,6 +34,14 @@ function App() {
             element={
               <PrivateRoute>
                 <Home />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/cart"
+            element={
+              <PrivateRoute>
+                <Cart />
               </PrivateRoute>
             }
           />

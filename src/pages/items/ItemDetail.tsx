@@ -4,6 +4,7 @@ import api from '../../utils/axios';
 import { ItemDetail } from '../../types/items';
 import Loading from '../../components/common/Loading';
 import ErrorMessage from '../../components/common/ErrorMessage';
+import { useAuth } from '../../contexts/AuthContext';
 
 function ItemDetailPage() {
   const { itemId } = useParams();
@@ -11,6 +12,7 @@ function ItemDetailPage() {
   const [item, setItem] = useState<ItemDetail | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const { user } = useAuth();
 
   useEffect(() => {
     const fetchItemDetail = async () => {
@@ -28,6 +30,20 @@ function ItemDetailPage() {
 
     fetchItemDetail();
   }, [itemId]);
+
+  const handleAddToCart = async () => {
+    if (!user) {
+      navigate('/login');
+      return;
+    }
+    
+    try {
+      await api.post('/cart/insert/', { item_id: itemId });
+      alert('장바구니에 추가되었습니다.');
+    } catch (err: any) {
+      alert(err.response?.data?.error || '장바구니 추가 실패');
+    }
+  };
 
   if (loading) return <Loading />;
   if (error) return <ErrorMessage message={error} />;
@@ -77,6 +93,15 @@ function ItemDetailPage() {
               <h2 className="text-xl font-semibold">작품 설명</h2>
               <p className="text-gray-700 whitespace-pre-line">{item.description}</p>
             </div>
+          )}
+          
+          {item.onSale && (
+            <button
+              onClick={handleAddToCart}
+              className="w-full bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+            >
+              장바구니에 담기
+            </button>
           )}
         </div>
       </div>
