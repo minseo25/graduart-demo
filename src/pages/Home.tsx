@@ -1,4 +1,5 @@
 import { useAuth } from '../contexts/AuthContext';
+import { Link } from 'react-router-dom';
 
 function Home() {
   const { user, logout } = useAuth();
@@ -28,6 +29,12 @@ function Home() {
             >
               로그아웃
             </button>
+            <Link
+              to="/items"
+              className="block w-full bg-blue-500 text-white text-center px-4 py-2 rounded hover:bg-blue-600"
+            >
+              작품 목록 보기
+            </Link>
           </div>
         )}
       </div>

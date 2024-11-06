@@ -5,6 +5,8 @@ import Login from './pages/Login';
 import Home from './pages/Home';
 import { useAuth } from './contexts/AuthContext';
 import GoogleCallback from './pages/GoogleCallback';
+import Items from './pages/items/Items';
+import ItemDetail from './pages/items/ItemDetail';
 
 function PrivateRoute({ children }: { children: React.ReactNode }) {
   const { isAuthenticated, loading } = useAuth();
@@ -24,6 +26,8 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/auth/callback" element={<GoogleCallback />} />
+          <Route path="/items" element={<Items />} />
+          <Route path="/items/:itemId" element={<ItemDetail />} />
           <Route
             path="/"
             element={
