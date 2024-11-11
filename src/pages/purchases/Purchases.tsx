@@ -39,6 +39,17 @@ function Purchases() {
     fetchPurchases();
   }, []);
 
+  const handleDeliveryCheck = async (itemId: string) => {
+    try {
+      const response = await api.get(`/delivery/${itemId}/`);
+      if (response.data.redirect_url) {
+        window.open(response.data.redirect_url, '_blank');
+      }
+    } catch (err: any) {
+      alert(err.response?.data?.error || '배송 조회에 실패했습니다.');
+    }
+  };
+
   if (loading) return <Loading />;
   if (error) return <ErrorMessage message={error} />;
 
@@ -68,7 +79,7 @@ function Purchases() {
               </div>
               <div className="flex flex-col gap-2">
                 <button
-                  onClick={() => window.open('https://www.cjlogistics.com/ko/tool/parcel/tracking')}
+                  onClick={() => handleDeliveryCheck(item.item_id)}
                   className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
                 >
                   배송조회
