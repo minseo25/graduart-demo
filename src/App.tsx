@@ -11,6 +11,7 @@ import Cart from './pages/Cart';
 import Purchase from './pages/purchase/Purchase';
 import PurchaseApprove from './pages/purchase/PurchaseApprove';
 import PurchaseFail from './pages/purchase/PurchaseFail';
+import Purchases from './pages/purchases/Purchases';
 
 function PrivateRoute({ children }: { children: React.ReactNode }) {
   const { isAuthenticated, loading } = useAuth();
@@ -65,6 +66,14 @@ function App() {
             }
           />
           <Route path="/purchaseFail" element={<PurchaseFail />} />
+          <Route
+            path="/purchases"
+            element={
+              <PrivateRoute>
+                <Purchases />
+              </PrivateRoute>
+            }
+          />
         </Routes>
       </Router>
     </AuthProvider>
