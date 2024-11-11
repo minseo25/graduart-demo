@@ -8,6 +8,9 @@ import GoogleCallback from './pages/GoogleCallback';
 import Items from './pages/items/Items';
 import ItemDetail from './pages/items/ItemDetail';
 import Cart from './pages/Cart';
+import Purchase from './pages/purchase/Purchase';
+import PurchaseApprove from './pages/purchase/PurchaseApprove';
+import PurchaseFail from './pages/purchase/PurchaseFail';
 
 function PrivateRoute({ children }: { children: React.ReactNode }) {
   const { isAuthenticated, loading } = useAuth();
@@ -45,6 +48,23 @@ function App() {
               </PrivateRoute>
             }
           />
+          <Route
+            path="/purchase"
+            element={
+              <PrivateRoute>
+                <Purchase />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/purchaseApprove"
+            element={
+              <PrivateRoute>
+                <PurchaseApprove />
+              </PrivateRoute>
+            }
+          />
+          <Route path="/purchaseFail" element={<PurchaseFail />} />
         </Routes>
       </Router>
     </AuthProvider>
