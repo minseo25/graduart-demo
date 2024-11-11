@@ -50,6 +50,21 @@ function Purchases() {
     }
   };
 
+  const handleRefundRequest = async (itemId: string) => {
+    if (!window.confirm('환불을 신청하시겠습니까?')) return;
+    
+    try {
+      const response = await api.post('/refunds/request/', { item_id: itemId });
+      alert(response.data.message || '환불 요청이 접수되었습니다.');
+      
+      // 환불 요청 후 구매 내역 새로고침
+      const updatedResponse = await api.get('/purchases/');
+      setPurchases(updatedResponse.data);
+    } catch (err: any) {
+      alert(err.response?.data?.error || '환불 요청 처리 중 오류가 발생했습니다.');
+    }
+  };
+
   if (loading) return <Loading />;
   if (error) return <ErrorMessage message={error} />;
 
@@ -85,8 +100,12 @@ function Purchases() {
                   배송조회
                 </button>
                 <button
-                  onClick={() => alert('준비중인 기능입니다.')}
-                  className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
+                  onClick={() => !item.refund && handleRefundRequest(item.item_id)}
+                  className={`px-4 py-2 text-white rounded ${
+                    item.refund 
+                      ? 'bg-gray-500 cursor-not-allowed' 
+                      : 'bg-red-500 hover:bg-red-600'
+                  }`}
                   disabled={item.refund}
                 >
                   {item.refund ? '환불 처리됨' : '환불신청'}
