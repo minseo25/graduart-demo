@@ -34,7 +34,8 @@ jwt token을 쿠키에 담아서 리턴했고, 보안을 위해 HttpOnly 세팅�
 
 그렇다면 로그인 상태를 어떻게 인식하냐, /auth/user/ api로 요청을 보내 로그인되었는지 여부를 감지하고 state로 저장해 관리 ㄱㄱ
 
-앞으로 다른 테스팅 페이지들도 만들게요
-
 프론트 기능 구현 시 참고.
 
+## 프론트 레포 링크
+
+https://github.com/hoooooojjjj/New_GraduART
